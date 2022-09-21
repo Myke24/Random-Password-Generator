@@ -1,0 +1,53 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model RandomPasswordGenerator.Models.PasswordGeneratorViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<form method="post" class="m-2 display-6">
+    <div class="m-3">
+        <label asp-for="pWordLength"></label>
+        <input asp-for="pWordLength" />
+    </div>
+    <div class="form-check m-3">
+        <label asp-for="excludeSimilar"></label>
+        <input type="checkbox" class="checkboxLarger" asp-for="excludeSimilar" />
+    </div>
+    <div class="form-check m-3">
+        <label asp-for="useUpper"></label>
+        <input type="checkbox" class="checkboxLarger" asp-for="useUpper" />
+    </div>
+    <div class="form-check m-3">
+        <label asp-for="useLower"></label>
+        <input type="checkbox" class="checkboxLarger" asp-for="useLower" />
+    </div>
+    <div class="form-check m-3">
+        <label asp-for="useNumber"></label>
+        <input type="checkbox" class="checkboxLarger" asp-for="useNumber" />
+        <label asp-for="useSpecial"></label>
+        <input type="checkbox" class="checkboxLarger" asp-for="useSpecial" />
+    </div>
+    <div class="form-check m-3">
+            <label asp-for="fillPassword"></label>
+            <input id="fillPassword" type="checkbox" class="checkboxLarger" asp-for="fillPassword" />
+            <label asp-for="passwordInput"></label>
+            <input type="text" asp-for="passwordInput" autocomplete="off" />
+        </div>
+    <button type="submit" class="btn btn-success" asp-controller="PasswordGenerator" asp-action="Index">Generate Password</button>
+    <button type="submit" class=" bg-warning" asp-controller="PasswordGenerator" asp-action="Reset">Reset</button>
+</form>
+    <div class="py-2">
+        <h3>Your Password :</h3>
+        <h6 id="generatedPassword" class="display-3 border border-4 overflow-auto generatedPassword text-light bg-dark bg-opacity-50">@Model.password</h6>
+        <button type="button" id="copyBtn" class="btn btn-dark bg-opacity-50">Copy Password</button>
+    </div>
+
+<script type="text/javascript">
+    let copyBtn = document.getElementById("copyBtn");
+    let generatedPassword = document.getElementById("generatedPassword");
+    copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(generatedPassword.innerText);
+    });
+</script>
